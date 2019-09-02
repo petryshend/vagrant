@@ -70,8 +70,8 @@ Vagrant.configure("2") do |config|
     sudo apt-get install -y software-properties-common python-software-properties
     sudo add-apt-repository -y ppa:ondrej/php
     sudo apt-get update
-    sudo apt-get install -y unzip
-    sudo apt-get install -y php7.3 php7.3-xml php7.3-zip
+    sudo apt-get install -y unzip 
+    sudo apt-get install -y php7.3 php7.3-xml php7.3-zip php7.3-mbstring php7.3-intl php7.3-pgsql
     sudo curl -s https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
 
