@@ -75,6 +75,9 @@ Vagrant.configure("2") do |config|
     sudo curl -s https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
 
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
     # Does not work for some reason, run manually after provision
     # wget https://get.symfony.com/cli/installer -O - | bash
     # export PATH="$HOME/.symfony/bin:$PATH"
