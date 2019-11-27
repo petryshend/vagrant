@@ -25,6 +25,8 @@ Vagrant.configure("2") do |config|
   # NOTE: This will enable public access to the opened port
   config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 8000, host: 8001
+  config.vm.network "forwarded_port", guest: 5000, host: 5001
+
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine and only allow access
@@ -67,16 +69,34 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update
     sudo apt-get -y upgrade
+    sudo apt-get install -y build-essential
+    sudo apt-get install -y libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev
+    sudo apt-get install -y git
+
+    # PHP
     sudo apt-get install -y software-properties-common python-software-properties
     sudo add-apt-repository -y ppa:ondrej/php
     sudo apt-get update
-    sudo apt-get install -y unzip 
-    sudo apt-get install -y php7.3 php7.3-xml php7.3-zip php7.3-mbstring php7.3-intl php7.3-pgsql php7.3-sqlite
+    sudo apt-get install -y unzip
+    sudo apt-get install -y php7.3 php7.3-xml php7.3-zip php7.3-mbstring php7.3-intl php7.3-pgsql
     sudo curl -s https://getcomposer.org/installer | php
     sudo mv composer.phar /usr/local/bin/composer
 
     curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
     sudo apt-get install -y nodejs
+
+
+    # Python
+    sudo apt-get install zlib1g-dev
+    wget https://www.python.org/ftp/python/3.8.0/Python-3.8.0.tar.xz
+    tar xvf Python-3.8.0.tar.xz
+    cd Python-3.8.0
+    ./configure
+    make
+    sudo make install
+    cd ..
+    rm -rf Python-3.8.0/
+    rm Python-3.8.0.tar.xz
 
     # Does not work for some reason, run manually after provision
     # wget https://get.symfony.com/cli/installer -O - | bash
